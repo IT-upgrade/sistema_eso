@@ -1,0 +1,97 @@
+
+.tabMenuOpen{
+
+    width: 290px;
+    height: 100%;
+    max-width: 233px;
+    background-color:#1fc44b;
+    /* animation-name: slideEnter;
+    animation-duration: 1s;
+    animation-fill-mode: forwards; */
+    display: flex;
+    flex-direction: column;
+  
+    
+  }
+  
+  .backTabMenuOpen{
+  
+    width: 100%;
+    height: 100%;
+    background-color:#201e1e;
+    max-width: 233px;
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(12, 12, 12, 0.486) 0px 0 10px;
+    
+  
+  }
+  /* .close{
+    
+    animation-name: slideDown;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    display: flex;
+    flex-direction: column;
+  
+  } */
+  
+  @media (max-width: 600px){
+  
+    .backTabMenuOpen{
+      position: absolute;
+      left: -100%;
+      z-index: 100;
+      animation-name: slideDown;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+  
+  
+    }
+    .tabMenuOpen{
+      position: absolute;
+      left: -100%;
+    }
+  
+  }
+  /* @media (min-width: 600px){
+    .tabMenuOpen{
+      animation-name: slideDown;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+  
+    }
+  } */
+  @keyframes slideEnter {
+    from{
+      
+      left: -100%;
+      /* opacity: 0; */
+    }
+    to {
+      
+      left: 0;
+      /* opacity: 1; */
+  
+    }
+    
+  }
+  
+  @keyframes slideDown {
+    from{
+      position: absolute;
+      left: 0;
+      /* opacity: 0; */
+    }
+    to {
+      position: absolute;
+      left: -100%;
+      /* opacity: 1; */
+  
+    }
+  }
+  

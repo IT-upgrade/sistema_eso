@@ -1,0 +1,76 @@
+
+.container{
+  
+    width: 100%;
+    background-color: white;
+    border: 2px solid #000;
+    box-shadow: 24;
+    padding: 0px 0px 6px 0px;
+    /* max-width: 800px; */
+    min-height: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    
+}
+
+.customOverlay {
+    background: rgba(36, 123, 160, 0.7);
+  }
+  .customModal {
+    background: #b2dbbf;
+   padding: 0px;
+   border-radius: 14px;
+  }
+
+
+.header_container{
+    width: 100%;
+    height: 50px;
+    color: white;
+    display: flex;
+    background-color: #7ab440;
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: #000 1px solid;
+}
+.booton_container{
+    width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 50px;
+   
+
+    
+}
+
+.titeAddress{
+    margin-top: 40px;
+    width: 100%;
+    height: 30px;
+    color: white;
+    display: flex;
+    /* background-color: #7ab440; */
+    justify-content:center;
+    align-items: center;
+    margin-bottom: 10px;
+    
+}
+
+.Mui-selected{
+    background-color: #7ab440;
+}
+
+label.Mui-focused{
+    color: #7ab440;
+}
+.MuiInput-underline:after{
+    border-bottom-color: #7ab440;
+}
+
+/* @media (max-width: 500px){
+  
+  
+  
+} */
