@@ -32,7 +32,7 @@ interface ModalC_EcompanyProp {
   open: boolean;
   setOpen: (type: boolean) => void;
   setLouder: (type: boolean) => void;
-  DataFromApi?: empresas | null;
+  DataFromApi?: any | null;
   openFromEdit: boolean;
 }
 
@@ -43,7 +43,7 @@ function ModalC_Ecompany({
   setLouder,
   DataFromApi,
 }: ModalC_EcompanyProp) {
-  const { SetPessoas, SetEmpresas } = useApi();
+  const { EditEmpresas, SetEmpresas } = useApi();
   const queryClient = useQueryClient();
   const formRef = useRef(null) as unknown as MutableRefObject<FormHandles>;
 
@@ -60,8 +60,6 @@ function ModalC_Ecompany({
     uf: String;
   }
 
-  console.log(DataFromApi);
-
   const { mutate } = useMutation(SetEmpresas, {
     onSuccess: () => {
       queryClient.invalidateQueries("Empresas");
@@ -74,29 +72,47 @@ function ModalC_Ecompany({
       prompt("Não foi possivel criar seu convite, tente mais tarde.", "danger");
     },
   });
+
+  const mutateEdit = useMutation(
+    (items) => EditEmpresas(items, DataFromApi.id),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("pessoas");
+        // presentToast("Convite criado com sucesso!", "success");
+        queryClient.resetQueries();
+        setLouder(true);
+        setOpen(false);
+      },
+      onError: () => {
+        prompt(
+          "Não foi possivel criar seu convite, tente mais tarde.",
+          "danger"
+        );
+      },
+    }
+  );
   const [datacEP, setdatacEP] = useState<typeCepAPI>();
 
-  const handleFormNormal = async (Data: empresas) => {
-    console.log(Data);
+  const handleFormNormal = async (Data: any) => {
+   
 
-    let {cargo} = Data
+    // let {cargo} = Data
 
-    cargo = []
+    // cargo = []
 
-    let texte = {...Data, cargo}
+    // let texte = {...Data, cargo}
 
-    console.log(texte)
+    // console.log(texte)
 
     try {
       formRef.current.setErrors({});
 
       //Validando Data, se invalida irá pro catch
-      await schemaFormCreateEmpresa.validate(texte, {
+      await schemaFormCreateEmpresa.validate(Data, {
         abortEarly: false,
       });
 
-      
-      mutate(texte);
+      mutate(Data);
     } catch (err) {
       console.log(err);
       let validationErrors: any = {};
@@ -113,32 +129,31 @@ function ModalC_Ecompany({
     }
   };
 
-  const handleFormEdit = async (Data: pessoas) => {
-    console.log(Data);
-    console.log("function to edit");
+  const handleFormEdit = async (Data: any) => {
+   
 
-    // try {
-    //   formRef.current.setErrors({});
+    try {
+      formRef.current.setErrors({});
 
-    //   //Validando Data, se invalida irá pro catch
-    //   await schemaFormCreateEmpresa.validate(Data, {
-    //     abortEarly: false,
-    //   });
-    //   mutate(Data);
-    // } catch (err) {
-    //   console.log(err);
-    //   let validationErrors: any = {};
+      //Validando Data, se invalida irá pro catch
+      await schemaFormCreateEmpresa.validate(Data, {
+        abortEarly: false,
+      });
+      mutateEdit.mutate(Data);
+    } catch (err) {
+      console.log(err);
+      let validationErrors: any = {};
 
-    //   if (err instanceof yup.ValidationError) {
-    //     err.inner.forEach((error) => {
-    //       console.log(error);
-    //       let path = error.path as string;
-    //       validationErrors[path] = error.message;
-    //     });
+      if (err instanceof yup.ValidationError) {
+        err.inner.forEach((error) => {
+          console.log(error);
+          let path = error.path as string;
+          validationErrors[path] = error.message;
+        });
 
-    //     formRef.current.setErrors(validationErrors);
-    //   }
-    // }
+        formRef.current.setErrors(validationErrors);
+      }
+    }
   };
 
   return (
@@ -146,7 +161,7 @@ function ModalC_Ecompany({
       open={open}
       onClose={() => {
         setOpen(false);
-        console.log("clicado");
+        
         DataFromApi = null;
       }}
       classNames={{
@@ -156,144 +171,101 @@ function ModalC_Ecompany({
     >
       <div className="container">
         <div className="header_container">
+          Cadastro
           <UserPlus size={32} color="black" weight="fill" />
         </div>
 
         <div className=" w-full bg-black">
           <Form
             ref={formRef}
-            onSubmit={!openFromEdit ? handleFormNormal : handleFormEdit}
+            onSubmit={DataFromApi ? handleFormEdit : handleFormNormal}
             autoComplete="off"
           >
             <Grid container padding={1} spacing={2}>
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <InputString
-                    name="NomeFantasia"
-                    tipo="NOME"
-                    datafromApi={DataFromApi?.NomeFantasia}
+                    name="nome_fantasia"
+                    tipo="Nome"
+                    datafromApi={DataFromApi?.nome_fantasia}
                   ></InputString>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputString
-                    name="rasãoSocial"
+                    name="rasao_social"
                     tipo="Rasão Social "
-                    datafromApi={DataFromApi?.rasãoSocial}
+                    datafromApi={DataFromApi?.rasao_social}
                   ></InputString>
                 </Grid>
-                {/* <Grid item xs={12} sm={3}>
-                  <InputDataTime name="data"></InputDataTime>
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <InputAutocomplete
-                    name={"genero"}
-                    inputLabel={" Sexo / Gênero"}
-                    options={optionsGeneri}
-                  ></InputAutocomplete>
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <InputAutocomplete
-                    name={"tipoDocumento"}
-                    inputLabel={"Tipo do Documento"}
-                    options={optionscompany}
-                  ></InputAutocomplete>
-                </Grid> */}
               </Grid>
 
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={3}>
                   <InputAutocomplete
-                    name={"tipoDocumento"}
+                    name={"tipo_doc"}
                     inputLabel={"Tipo do Documento"}
                     options={optionscompany}
+                    datafromApi={DataFromApi?.tipo_doc}
                   ></InputAutocomplete>
                 </Grid>
                 <Grid item xs={12} sm={3}>
                   <InputNumber
-                    name="CNPJ"
+                    name="numero_doc"
                     tipo="CNPJ"
-                    datafromApi={DataFromApi?.CNPJ}
+                    datafromApi={DataFromApi?.numero_doc}
                   ></InputNumber>
                 </Grid>
 
                 <Grid item xs={12} sm={3}>
                   <InputAutocomplete
-                    name={"Estabelecimento"}
+                    name={"estabelecimento"}
                     inputLabel={"Estabelecimento"}
                     options={optionsEstabelecimento}
+                    datafromApi={DataFromApi?.estabelecimento}
                   ></InputAutocomplete>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                  <InputString
-                    name="grauRisco"
-                    tipo="Grau de Risco"
-                    datafromApi={DataFromApi?.grauRisco}
-                  ></InputString>
+                  <InputDataTime
+                    name="data_registro"
+                    datafromApi={DataFromApi?.data_registro}
+                  ></InputDataTime>
                 </Grid>
-
-                {/* <Grid item xs={12} sm={3}>
-                  <InputNumber
-                    name="documentoCpf"
-                    tipo="CPF"
-                    datafromApi={DataFromApi?.documentoCpf}
-                  ></InputNumber>
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <InputNumber
-                    name="documentoRg"
-                    tipo="RG"
-                    datafromApi={DataFromApi?.documentoRg}
-                  ></InputNumber>
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <InputNumber
-                    name="TEL_PRINCIPAL"
-                    tipo="Telefone"
-                    datafromApi={DataFromApi?.TEL_PRINCIPAL}
-                  ></InputNumber>
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <InputNumber
-                    name="TEL_SECUNDARIO"
-                    tipo="Telefone secundário"
-                    datafromApi={DataFromApi?.TEL_SECUNDARIO}
-                  ></InputNumber>
-                </Grid> */}
               </Grid>
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={3}>
                   <InputString
-                    name="EMAIL_PRINCIPAL"
+                    name="email"
                     tipo="E-mail"
-                    datafromApi={DataFromApi?.EMAIL_PRINCIPAL}
+                    datafromApi={DataFromApi?.email}
                   ></InputString>
                 </Grid>
                 <Grid item xs={12} sm={3}>
                   <InputString
-                    name="EMAIL_SECUNDARIO"
+                    name="email_sec"
                     tipo="E-mail secundario"
-                    datafromApi={DataFromApi?.EMAIL_SECUNDARIO}
+                    datafromApi={DataFromApi?.email_sec}
                   ></InputString>
                 </Grid>
 
                 <Grid item xs={12} sm={3}>
                   <InputNumber
-                    name="TEL_PRINCIPAL"
+                    name="tel"
                     tipo="Telefone"
-                    datafromApi={DataFromApi?.TEL_PRINCIPAL}
+                    datafromApi={DataFromApi?.tel}
                   ></InputNumber>
                 </Grid>
                 <Grid item xs={12} sm={3}>
                   <InputNumber
-                    name="TEL_SECUNDARIO"
+                    name="tel_sec"
                     tipo="Telefone secundário"
-                    datafromApi={DataFromApi?.TEL_SECUNDARIO}
+                    datafromApi={DataFromApi?.tel_sec}
                   ></InputNumber>
                 </Grid>
               </Grid>
             </Grid>
 
             <div className="titeAddress">
+              Localização
               <MapPinLine size={32} color="black" weight="fill" />
             </div>
 
@@ -301,9 +273,10 @@ function ModalC_Ecompany({
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={3}>
                   <InputCep
-                    name="CEP"
+                    name="cep"
                     tipo="Cep"
                     setStateCep={setdatacEP}
+                    datafromApi={DataFromApi?.cep}
                   ></InputCep>
                 </Grid>
                 <Grid item xs={12} sm={3}>
@@ -335,24 +308,24 @@ function ModalC_Ecompany({
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={3}>
                   <InputString
-                    name="RUA"
+                    name="rua"
                     tipo="Rua"
                     dataCep={datacEP?.logradouro as string}
-                    datafromApi={DataFromApi?.RUA}
+                    datafromApi={DataFromApi?.rua}
                   ></InputString>
                 </Grid>
                 <Grid item xs={12} sm={3}>
                   <InputString
-                    name="NUMERO"
+                    name="numero"
                     tipo="Numero"
-                    datafromApi={DataFromApi?.NUMERO}
+                    datafromApi={DataFromApi?.numero}
                   ></InputString>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputString
-                    name="COMPLEMENTO"
+                    name="complemento"
                     tipo="Complemento"
-                    datafromApi={DataFromApi?.COMPLEMENTO}
+                    datafromApi={DataFromApi?.complemento}
                   ></InputString>
                 </Grid>
               </Grid>
@@ -366,7 +339,7 @@ function ModalC_Ecompany({
               setdatacEP(undefined);
             }}
           >
-            {!openFromEdit ? "Enviar" : "Editar"}
+            {DataFromApi ? "Editar" : "Enviar"}
           </button>
         </div>
       </div>

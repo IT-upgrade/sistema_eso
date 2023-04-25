@@ -8,9 +8,10 @@ interface InputCepProps {
   name: string;
   tipo: string;
   setStateCep: (type: any) => any;
+  datafromApi?: string;
 }
 
-function InputCep({ name, tipo, setStateCep }: InputCepProps) {
+function InputCep({ name, tipo, setStateCep, datafromApi }: InputCepProps) {
   const { TextMaskCustomCep } = UseTextMaskInput();
   const { fieldName, defaultValue, registerField, error } = useField(name);
 
@@ -34,7 +35,7 @@ function InputCep({ name, tipo, setStateCep }: InputCepProps) {
     setValue(e.target.value);
     const cep = e.target.value.replace(/\D/g, "");
 
-    console.log(cep);
+    
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((res) => res.json())
       .then((data) => {
@@ -44,7 +45,11 @@ function InputCep({ name, tipo, setStateCep }: InputCepProps) {
       });
   }
 
-  console.log(Value);
+  useEffect(() => {
+    if (datafromApi) {
+      setValue(datafromApi);
+    }
+  }, [datafromApi]);
   return (
     <div>
       <InputLabel shrink>{tipo}</InputLabel>

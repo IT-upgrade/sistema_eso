@@ -174,13 +174,13 @@ function Pessoas() {
                       <TableCell>
                         <div>
                           <span className=" text-[15px] mr-2">Telefone:</span>
-                          {item.TEL_PRINCIPAL}
+                          {item.tel}
                         </div>
                         <div>
                           <span className=" text-[15px] text-ellipsis mr-2">
                             Email:
                           </span>
-                          {item.EMAIL_PRINCIPAL}
+                          {item.email}
                         </div>
                       </TableCell>
                       <TableCell className="  flex items-center border-none">

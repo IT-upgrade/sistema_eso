@@ -14,6 +14,7 @@ import { sucess_altentication, userAltentication } from "../redux/sliceAltentica
 import Input from "../../src/componestes/inputs/SinpouInput";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import InputString from "../componestes/inputs/InputString";
 
 function Login() {
   const dispath = useDispatch();
@@ -92,8 +93,8 @@ function Login() {
       style={{
         backgroundImage: `${
           sizeScreen == false
-            ? "url(https://acewebsites.com.br/ams/wp-content/uploads/2022/11/img-bg-02-min.png)"
-            : "url(https://acewebsites.com.br/ams/wp-content/uploads/2022/11/img-bg-02-min.png)"
+            ? `url(${imgBack})`
+            : `url(${imgBack})`
         }`,
       }}
     >
@@ -110,8 +111,8 @@ function Login() {
         style={{
           backgroundImage: `${
             sizeScreen == false
-              ? "url()"
-              : "url(https://acewebsites.com.br/ams/wp-content/uploads/2022/11/img-bg-02-min.png)"
+            ? `url(${imgBack})`
+            : `url(${imgBack})`
           }`,
         }}
       >
@@ -122,9 +123,9 @@ function Login() {
             </span>
 
             <div className=" w-full flex flex-col justify-center items-center h-[180px] p-2 ">
-              <Input name="email" tipo=" E-mail:"></Input>
+              <InputString name="email" tipo=" E-mail:"></InputString>
 
-              <Input name="senha" tipo="password"></Input>
+              <InputString name="senha" tipo="password"></InputString>
             </div>
 
             <button

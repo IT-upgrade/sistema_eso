@@ -45,7 +45,7 @@ function ModalC_ECargo({
   const queryClient = useQueryClient();
   const formRef = useRef(null) as unknown as MutableRefObject<FormHandles>;
 
-  console.log(id);
+  
 
   interface typeCepAPI {
     bairro: String;
@@ -60,7 +60,7 @@ function ModalC_ECargo({
     uf: String;
   }
 
-  console.log(DataFromApi);
+ 
 
   const { mutate } = useMutation(EditEmpresas, {
     onSuccess: () => {
@@ -77,7 +77,7 @@ function ModalC_ECargo({
   const [datacEP, setdatacEP] = useState<typeCepAPI>();
 
   const handleFormNormal = async (Data: any) => {
-    console.log(Data);
+    
 
     try {
       formRef.current.setErrors({});
@@ -88,7 +88,7 @@ function ModalC_ECargo({
       //   });
       mutate(Data);
     } catch (err) {
-      console.log(err);
+      
       let validationErrors: any = {};
 
       if (err instanceof yup.ValidationError) {
@@ -103,7 +103,7 @@ function ModalC_ECargo({
   };
 
   const handleFormEdit = async (Data: pessoas) => {
-    console.log(Data);
+    
     console.log("function to edit");
 
     // try {

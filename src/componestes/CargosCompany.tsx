@@ -40,13 +40,12 @@ function CargosCompany() {
     {
       staleTime: 1000 * 60 * 60,
       onSuccess: (data) => {
-        console.log(data);
-        //   setPessoas(data.data);
+       
       },
     }
   );
 
-  console.log(data?.data?.cargo);
+  
 
   const [open, setOpen] = useState(false);
   const [loader, setloader] = useState<boolean>(false);

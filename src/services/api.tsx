@@ -76,7 +76,7 @@ function useApi() {
 
   const SetEmpresas = async (data?: any) => {
     try {
-      const response = await api.post("Empresas", { data });
+      const response = await api.post("empresas/cadastro", { data });
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -88,9 +88,8 @@ function useApi() {
 
   const DeletEmpresas = async (id?: any) => {
     try {
-      const response = await api.delete(`Empresas/${id}`);
-      //   const { accessToken } = response.data;
-      //   saveToken({ token: accessToken, auth: true })
+      const response = await api.delete(`empresas/${id}`);
+      
 
       return response;
     } catch (error) {
@@ -108,8 +107,8 @@ function useApi() {
     console.log(id);
 
     try {
-      const response = await api.patch(`Empresas/${1}`, {
-        cargo: [data],
+      const response = await api.put(`empresas/${id}`, {
+        data,
       });
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })

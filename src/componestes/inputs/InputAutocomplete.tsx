@@ -23,6 +23,7 @@ type Props = TextFieldProps & {
   tipo?: string;
   options: any;
   inputLabel?: any;
+  datafromApi?: string;
 };
 
 function InputAutocomplete({
@@ -31,6 +32,7 @@ function InputAutocomplete({
   info,
   options,
   inputLabel,
+  datafromApi,
   ...rest
 }: Props) {
   const { fieldName, defaultValue, registerField, error } = useField(
@@ -39,8 +41,6 @@ function InputAutocomplete({
 
   const [Value, setValue] = useState<string | any>(options[0]);
   const [inputValue, setInputValue] = React.useState<string | any>("");
-
-  console.log(options[0]);
 
   useEffect(() => {
     registerField({
@@ -76,6 +76,12 @@ function InputAutocomplete({
     },
   });
 
+  useEffect(() => {
+    if (datafromApi) {
+      setValue({ label: datafromApi });
+    }
+  }, [datafromApi]);
+
   return (
     <div>
       {/* <span className=" pb-1">Tipo do documento</span> */}
@@ -90,7 +96,6 @@ function InputAutocomplete({
         inputValue={inputValue}
         onChange={(_, newValue) => {
           setValue(newValue);
-          console.log(newValue);
         }}
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);

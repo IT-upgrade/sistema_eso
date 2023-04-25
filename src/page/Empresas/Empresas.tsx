@@ -69,9 +69,9 @@ function Empresas() {
   });
 
   function Delet(id: string) {
-    console.log("delet");
+    // console.log("delet");
 
-    console.log(id);
+    // console.log(id);
 
     try {
       mutate(id);
@@ -96,8 +96,6 @@ function Empresas() {
       setloader(false);
     }
   }, [pessoas]);
-
-  console.log(data?.data.data);
 
   return (
     <div className=" w-full flex flex-col  min-h-full p-2 bg-white relative ">
@@ -173,18 +171,18 @@ function Empresas() {
               {data?.data
                 ? data?.data?.map((item: any, index: any) => (
                     <TableRow key={index} className=" hover:bg-[#00c3ff1f]">
-                      <TableCell>{item.data.NomeFantasia}</TableCell>
+                      <TableCell>{item.nome_fantasia}</TableCell>
 
                       <TableCell>
                         <div>
                           <span className=" text-[15px] mr-2">Telefone:</span>
-                          {item.data.TEL_PRINCIPAL}
+                          {item.tel}
                         </div>
                         <div>
                           <span className=" text-[15px] text-ellipsis mr-2">
                             Email:
                           </span>
-                          {item.data.EMAIL_PRINCIPAL}
+                          {item.email}
                         </div>
                       </TableCell>
                       <TableCell className="  flex flex-col items-center border-none">
@@ -196,7 +194,7 @@ function Empresas() {
                         <div className=" w-full flex justify-center">
                           <Edit_item
                             color={"#00C5FF"}
-                            data={item.data}
+                            data={item}
                             functionActivateModal={ativarModalparaeditar}
                           ></Edit_item>
                           <Delete_item

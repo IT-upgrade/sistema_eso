@@ -64,7 +64,9 @@ export default function InputString({
   return (
     <div>
       <div>
-        <InputLabel shrink>{tipo}</InputLabel>
+        <InputLabel shrink>
+          <h4>{tipo}</h4>
+        </InputLabel>
         <Input
           defaultValue={defaultValue}
           style={{ width: "100%" }}

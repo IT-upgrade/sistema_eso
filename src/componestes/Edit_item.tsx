@@ -14,7 +14,7 @@ function Edit_item({
   functionActivateModal,
   texto,
 }: Edit_itemProp) {
-  // console.log(data);
+  
   return (
     <div
       onClick={() => functionActivateModal(data)}

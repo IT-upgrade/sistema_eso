@@ -58,7 +58,7 @@ export const schemaFormCreateConvite = Yup.object().shape({
     nascimento: Yup.string().required("nenhuma data disponibilizado"),
     numero_doc: Yup.string().required("nenhum Cpf disponibilizado"),
     rg: Yup.string().required("nenhum Rg disponibilizado"),
-    rg_emissor:Yup.string().required("nenhum Rg disponibilizado"),
+    rg_emissor: Yup.string().required("nenhum Rg disponibilizado"),
     estado: Yup.string().required("nenhum estado disponibilizado"),
     genero: Yup.string().required("nenhum genero disponibilizado"),
     tipo_doc: Yup.string().required("nenhum Documento disponibilizado")
@@ -67,26 +67,27 @@ export const schemaFormCreateConvite = Yup.object().shape({
 export const schemaFormCreateEmpresa = Yup.object().shape({
 
 
-    CEP: Yup.string().required("nenhum cep disponibilizado"),
-    COMPLEMENTO: Yup.string(),
-    EMAIL_PRINCIPAL: Yup.string().required("nenhum email disponibilizado"),
-    EMAIL_SECUNDARIO: Yup.string(),
-    NUMERO: Yup.string().required("nenhum numero disponibilizado"),
-    Estabelecimento: Yup.string().required("nenhum nome disponibilizado"),
-    NomeFantasia: Yup.string().required("nenhum nome disponibilizado"),
-    grauRisco: Yup.string().required("nenhum nome disponibilizado"),
-    rasãoSocial: Yup.string().required("nenhum nome disponibilizado"),
-    RUA: Yup.string().required("nenhuma rua disponibilizada"),
-    TEL_PRINCIPAL: Yup.string().required("nenhum telefone disponibilizado"),
-    TEL_SECUNDARIO: Yup.string(),
+    cep: Yup.string().required("nenhum cep disponibilizado"),
+    complemento: Yup.string(),
+    email: Yup.string().required("nenhum email disponibilizado"),
+    email_sec: Yup.string(),
+    numero: Yup.string().required("nenhum numero disponibilizado"),
+    estabelecimento: Yup.string().required("nenhum nome disponibilizado"),
+    nome_fantasia: Yup.string().required("nenhum nome disponibilizado"),
+    // grauRisco: Yup.string().required("nenhum nome disponibilizado"),
+    data_registro: Yup.string().required("nenhuma data informada"),
+    rasao_social: Yup.string().required("nenhum nome disponibilizado"),
+    rua: Yup.string().required("nenhuma rua disponibilizada"),
+    tel: Yup.string().required("nenhum telefone disponibilizado"),
+    tel_sec: Yup.string(),
     bairro: Yup.string().required("nenhum bairro disponibilizado"),
     cidade: Yup.string().required("nenhuma cidade disponibilizado"),
     // data: Yup.string().required("nenhuma data disponibilizado"),
-    CNPJ: Yup.string().required("nenhum Cpf disponibilizado"),
+    numero_doc: Yup.string().required("nenhum Cpf disponibilizado"),
     // documentoRg: Yup.string().required("nenhum Rg disponibilizado"),
     estado: Yup.string().required("nenhum estado disponibilizado"),
     // genero: Yup.string().required("nenhum genero disponibilizado"),
-    tipoDocumento: Yup.string().required("nenhum Documento disponibilizado")
+    tipo_doc: Yup.string().required("nenhum Documento disponibilizado")
 });
 
 export const schemaFormLinkType = Yup.object().shape({

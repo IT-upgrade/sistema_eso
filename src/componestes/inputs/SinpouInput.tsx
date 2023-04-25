@@ -48,10 +48,12 @@ function SinpouInput({ name, tipo }: SinpouInputProps) {
     });
   }, [fieldName, registerField, Value]);
 
-  console.log(Value);
+  
   return (
     <div>
-      <InputLabel shrink>{tipo}</InputLabel>
+      <InputLabel shrink>
+        <h3 className=" text-[white]">{tipo}</h3>
+      </InputLabel>
       <TextField
         id="validation-outlined-input"
         size="small"

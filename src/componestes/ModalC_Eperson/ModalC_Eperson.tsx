@@ -68,18 +68,24 @@ function ModalC_Eperson({
       prompt("Não foi possivel criar seu convite, tente mais tarde.", "danger");
     },
   });
-  const mutateEdit  = useMutation((items)=> EditPessoas(items,  DataFromApi.id), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("pessoas");
-      // presentToast("Convite criado com sucesso!", "success");
-      queryClient.resetQueries();
-      setLouder(true);
-      setOpen(false);
-    },
-    onError: () => {
-      prompt("Não foi possivel criar seu convite, tente mais tarde.", "danger");
-    },
-  });
+  const mutateEdit = useMutation(
+    (items) => EditPessoas(items, DataFromApi.id),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("pessoas");
+        // presentToast("Convite criado com sucesso!", "success");
+        queryClient.resetQueries();
+        setLouder(true);
+        setOpen(false);
+      },
+      onError: () => {
+        prompt(
+          "Não foi possivel criar seu convite, tente mais tarde.",
+          "danger"
+        );
+      },
+    }
+  );
   const [datacEP, setdatacEP] = useState<typeCepAPI>();
 
   const handleFormNormal = async (Data: pessoas) => {
@@ -113,12 +119,12 @@ function ModalC_Eperson({
     console.log("function to edit");
 
     try {
-      // formRef.current.setErrors({});
+      formRef.current.setErrors({});
 
-      // //Validando Data, se invalida irá pro catch
-      // await schemaFormCreateConvite.validate(Data, {
-      //   abortEarly: false,
-      // });
+      //Validando Data, se invalida irá pro catch
+      await schemaFormCreateConvite.validate(Data, {
+        abortEarly: false,
+      });
       mutateEdit.mutate(Data);
     } catch (err) {
       console.log(err);
@@ -152,6 +158,7 @@ function ModalC_Eperson({
     >
       <div className="container">
         <div className="header_container_person">
+          Informações
           <UserPlus size={32} color="white" weight="fill" />
         </div>
 
@@ -172,13 +179,17 @@ function ModalC_Eperson({
                   ></InputString>
                 </Grid>
                 <Grid item xs={12} sm={3}>
-                  <InputDataTime name="nascimento"></InputDataTime>
+                  <InputDataTime
+                    name="nascimento"
+                    datafromApi={DataFromApi?.nascimento}
+                  ></InputDataTime> 
                 </Grid>
                 <Grid item xs={12} sm={3}>
                   <InputAutocomplete
                     name={"genero"}
                     inputLabel={" Sexo / Gênero"}
                     options={optionsGeneri}
+                    datafromApi={DataFromApi?.genero}
                   ></InputAutocomplete>
                 </Grid>
                 <Grid item xs={12} sm={3}>
@@ -246,6 +257,7 @@ function ModalC_Eperson({
             </Grid>
 
             <div className="titeAddress_person">
+              Localização
               <MapPinLine size={32} color="white" weight="fill" />
             </div>
 
@@ -256,6 +268,7 @@ function ModalC_Eperson({
                     name="cep"
                     tipo="Cep"
                     setStateCep={setdatacEP}
+                    datafromApi={DataFromApi?.cep}
                   ></InputCep>
                 </Grid>
                 <Grid item xs={12} sm={3}>
