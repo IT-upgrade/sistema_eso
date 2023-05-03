@@ -4,7 +4,7 @@ export interface SendLogin {
 
 
     email: string;
-    senha: string;
+    password: string;
 
 
 }

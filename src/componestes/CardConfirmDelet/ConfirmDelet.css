@@ -1,0 +1,40 @@
+.customOverlayDelet {
+    background: rgba(36, 123, 160, 0.7);
+}
+
+.customModalDelet {
+    background: #b2dbbf;
+    padding: 0px;
+    border-radius: 14px;
+}
+
+.bodyDelet {
+    width: 100%;
+    min-width: 300px;
+    min-height: 100px;
+    background-color: rgb(255, 115, 0);
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.AreabutonBodyDelet {
+    width: 100%;
+    margin-top: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    /* background-color: blue; */
+}
+
+.buttonBodyDelet {
+    background-color: red;
+    padding: 4px;
+    border-radius: 50px;
+    cursor: pointer;
+
+}

@@ -39,7 +39,7 @@ function InputCep({ name, tipo, setStateCep, datafromApi }: InputCepProps) {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+       
 
         setStateCep(data);
       });

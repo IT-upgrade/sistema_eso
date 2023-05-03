@@ -99,7 +99,7 @@ export const schemaFormLinkType = Yup.object().shape({
 
 export const schemaForLogin = Yup.object().shape({
     email: Yup.string().email("  Nenhum email fornecido ").required("  Nenhum email adicionado"),
-    senha: Yup.string().required("  Nenhum Link adicionado"),
+    password: Yup.string().required("  Nenhum Link adicionado"),
 
 });
 

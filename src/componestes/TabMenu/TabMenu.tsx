@@ -8,10 +8,12 @@ import {
   Kanban,
   List,
   Person,
+  Radioactive,
   X,
 } from "@phosphor-icons/react";
 import "./TabMenu.css";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useParams } from "react-router-dom";
+import { useQueryClient } from "react-query";
 interface TabMenuProp {
   isActiveMenu: boolean;
   sizeScreen: boolean;
@@ -19,6 +21,9 @@ interface TabMenuProp {
 }
 
 function TabMenu({ isActiveMenu, sizeScreen, SetisActiveMenu }: TabMenuProp) {
+  const Identifyrota = useParams();
+  const queryClient = useQueryClient();
+
   const fakeArrayItens = [
     {
       item: "Inicio",
@@ -45,7 +50,21 @@ function TabMenu({ isActiveMenu, sizeScreen, SetisActiveMenu }: TabMenuProp) {
       rota: "/Empresas",
       icone: (props: any) => <Buildings {...props} />,
     },
+    {
+      item: "Riscos",
+      rota: "/Riscos",
+      icone: (props: any) => <Radioactive {...props} />,
+    },
   ];
+
+  
+
+  useEffect(() => {
+    if (JSON.stringify(Identifyrota) == "{}") {
+      queryClient.resetQueries("findeEmpresas");
+      queryClient.resetQueries("EmpresaById");
+    }
+  }, [Identifyrota]);
 
   return (
     <div>

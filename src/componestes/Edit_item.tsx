@@ -18,7 +18,7 @@ function Edit_item({
   return (
     <div
       onClick={() => functionActivateModal(data)}
-      className=" min-w-10 p-1 bg-[#7ab440] flex justify-center items-center rounded-md mr-10 hover:cursor-pointer"
+      className=" min-w-10 p-1 bg-[#7ab440] flex justify-center items-center rounded-md mr-10 hover:cursor-pointer text-white"
       style={{ backgroundColor: `${color}` }}
     >
       {texto?`${texto} `:null}

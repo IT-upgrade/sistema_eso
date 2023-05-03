@@ -39,7 +39,7 @@ function ModalC_Eperson({
   const queryClient = useQueryClient();
   const formRef = useRef(null) as unknown as MutableRefObject<FormHandles>;
 
-  console.log(DataFromApi);
+ 
 
   interface typeCepAPI {
     bairro: String;
@@ -54,7 +54,7 @@ function ModalC_Eperson({
     uf: String;
   }
 
-  console.log(DataFromApi);
+ 
 
   const { mutate } = useMutation(SetPessoas, {
     onSuccess: () => {
@@ -89,7 +89,7 @@ function ModalC_Eperson({
   const [datacEP, setdatacEP] = useState<typeCepAPI>();
 
   const handleFormNormal = async (Data: pessoas) => {
-    console.log(Data);
+   
 
     try {
       formRef.current.setErrors({});
@@ -115,7 +115,7 @@ function ModalC_Eperson({
   };
 
   const handleFormEdit = async (Data: any) => {
-    console.log(Data);
+   
     console.log("function to edit");
 
     try {

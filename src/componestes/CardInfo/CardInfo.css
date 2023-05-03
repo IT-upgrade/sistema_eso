@@ -1,0 +1,40 @@
+.customOverlayCardInfo {
+    background: rgba(36, 123, 160, 0.7);
+    margin: 0%;
+    /* width: 100%; */
+}
+
+.customModalCardInfo {
+    background: #e9eeeb;
+    padding: 0px;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 250px;    
+
+
+}
+
+.header_containerCardInfo{
+    color: rgb(170, 6, 6);
+    border: none;
+    font-weight: bolder;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: x-large;
+}
+
+.itensContainerCardInfo{
+    
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+    margin-bottom: 2px;
+
+}
+
+.text_itensContainerCardInfo{
+    font-size: larger;
+    margin-bottom: 5px;
+    border-bottom: 1px solid black;
+}

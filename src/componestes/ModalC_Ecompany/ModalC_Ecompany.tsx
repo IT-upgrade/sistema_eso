@@ -68,8 +68,9 @@ function ModalC_Ecompany({
       setLouder(true);
       setOpen(false);
     },
-    onError: () => {
-      prompt("Não foi possivel criar seu convite, tente mais tarde.", "danger");
+    onError: (error:any, ) => {
+      console.log(error)
+      prompt("Não foi possivel criar seu convite, tente mais tarde.", error as string);
     },
   });
 

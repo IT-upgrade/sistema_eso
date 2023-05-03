@@ -20,6 +20,8 @@ import { useQuery } from "react-query";
 import useApi from "../services/api";
 import { useEffect, useState } from "react";
 
+import { useMutation, useQueryClient } from "react-query";
+
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
@@ -68,41 +70,35 @@ const fabGreenStyle = {
 function CompanyManagemen() {
   const { id } = useParams();
 
+  const texte =useParams()
+
+  
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: unknown, newValue: number) => {
     setValue(newValue);
   };
-  const { GetPessoas, GetEmpresas, DeletEmpresas } = useApi();
+  const { GetPessoas, GetEmpresas, GetEmpresaById } = useApi();
 
-  const { data, isLoading, refetch } = useQuery("findeEmpresas", GetEmpresas, {
+  const { data, isLoading, refetch } = useQuery("findeEmpresas", ()=> GetEmpresaById(id), {
     staleTime: 1000 * 60 * 60,
     onSuccess: (data) => {
-      console.log(data.data?.indexOf(id));
+      console.log(data.data)
     },
   });
 
-  // console.log(data?.data)
+  
+
+  
 
   const [first, setfirst] = useState<any | null>();
 
-  console.log(first);
-
-  useEffect(() => {
-    data?.data.forEach((item: any, index: any) => {
-      // console.log(item.id);
-
-      if (item.id == id) {
-        setfirst(item);
-      }
-    });
-  }, [data]);
-
+ 
   return (
-    <div className=" w-full flex flex-col  min-h-full p-2 bg-white relative ">
-      <div className=" w-full  h-11 text-[40px] p-3  bg-[#f5f5f5] flex justify-center items-center">
-        {first?.data?.NomeFantasia}
+    <div className=" w-full flex flex-col  min-h-full p-2 bg-white relative  ">
+      <div className=" w-full  h-11 md:text-[40px] text-[#201e1e] p-9   flex justify-center items-center  border-[2px] border-b-0 border-white rounded-t-sm font-mono bg-[#E6F6D1] ">
+        {data?.data?.nome_fantasia}
       </div>
       <Box
         sx={{

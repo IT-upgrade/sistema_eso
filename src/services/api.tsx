@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userAltentication } from "../redux/sliceAltentication";
 // import { CreateConviteType, EditConviteType } from "../utils/types";
 // import { AppContext } from "./context";
 // import useAuth from "./hooks/useAuth";
@@ -9,13 +11,46 @@ function useApi() {
 
   //   const { state } = useContext(AppContext);
 
+  const dadosuser = useSelector(userAltentication);
+  const token = dadosuser.data.accessToken?.data.access_token;
+
+  // console.log(dadosuser.data.accessToken?.data.access_token)
+
   const api = axios.create({
     baseURL: "http://localhost:3000",
   });
 
+  const signin = async (email: string, password: string) => {
+    try {
+      const response = await api.post("login", { email, password });
+      const { accessToken } = response.data;
+      // saveToken({ token: accessToken, auth: true });
+
+      return response;
+    } catch (error) {
+      throw "falha";
+    }
+  };
+
+  // const signup = async (userId: string, phoneNumber: string) => {
+  //   try {
+  //     const response = await api.post("auth/signup", { userId, phoneNumber });
+  //     const { accessToken } = response.data;
+  //     saveToken({ token: accessToken, auth: true });
+
+  //     return response;
+  //   } catch (error) {
+  //     throw "falha";
+  //   }
+  // };
+
+  // crud pessoas---------------------------------------------------------------------------------------------------------------
+
   const GetPessoas = async () => {
     try {
-      const response = await api.get("pessoas");
+      const response = await api.get("pessoas", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -28,7 +63,13 @@ function useApi() {
   const SetPessoas = async (data?: any) => {
     console.log(data);
     try {
-      const response = await api.post("pessoas/cadastro", { data });
+      const response = await api.post(
+        "pessoas/cadastro",
+        { data },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -41,7 +82,13 @@ function useApi() {
     console.log(data);
     console.log(id);
     try {
-      const response = await api.put(`pessoas/${id}`, { data });
+      const response = await api.put(
+        `pessoas/${id}`,
+        { data },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -52,7 +99,9 @@ function useApi() {
   };
   const DeletPessoas = async (id?: any) => {
     try {
-      const response = await api.delete(`pessoas/${id}`);
+      const response = await api.delete(`pessoas/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -62,9 +111,13 @@ function useApi() {
     }
   };
 
+  // crud empresas---------------------------------------------------------------------------------------------------------------
+
   const GetEmpresas = async () => {
     try {
-      const response = await api.get("Empresas");
+      const response = await api.get("Empresas", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -76,7 +129,13 @@ function useApi() {
 
   const SetEmpresas = async (data?: any) => {
     try {
-      const response = await api.post("empresas/cadastro", { data });
+      const response = await api.post(
+        "empresas/cadastro",
+        { data },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -88,8 +147,9 @@ function useApi() {
 
   const DeletEmpresas = async (id?: any) => {
     try {
-      const response = await api.delete(`empresas/${id}`);
-      
+      const response = await api.delete(`empresas/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       return response;
     } catch (error) {
@@ -107,9 +167,15 @@ function useApi() {
     console.log(id);
 
     try {
-      const response = await api.put(`empresas/${id}`, {
-        data,
-      });
+      const response = await api.put(
+        `empresas/${id}`,
+        {
+          data,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -123,7 +189,9 @@ function useApi() {
     console.log(id);
 
     try {
-      const response = await api.get(`Empresas/${id}`);
+      const response = await api.get(`Empresas/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       //   const { accessToken } = response.data;
       //   saveToken({ token: accessToken, auth: true })
 
@@ -233,6 +301,7 @@ function useApi() {
     EditEmpresas,
     GetEmpresaById,
     EditPessoas,
+    signin,
     // signup,
     // createConvite,
     // getTemes,

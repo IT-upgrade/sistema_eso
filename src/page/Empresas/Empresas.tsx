@@ -29,6 +29,7 @@ import Edit_item from "../../componestes/Edit_item";
 import Delete_item from "../../componestes/Delete_item";
 import ModalC_Ecompany from "../../componestes/ModalC_Ecompany/ModalC_Ecompany";
 import BotaoInfo_Gerenciar from "../../componestes/BotaoInfo_Gerenciar";
+import CardConfirmDelet from "../../componestes/CardConfirmDelet/CardConfirmDelet";
 
 function Empresas() {
   const { GetPessoas, GetEmpresas, DeletEmpresas } = useApi();
@@ -47,7 +48,9 @@ function Empresas() {
 
   const [open, setOpen] = useState(false);
   const [openFromEdit, setopenFromEdit] = useState(false);
+  const [saveIdEmpresa, setsaveIdEmpresa] = useState<string>();
   const [openToEdit, setopenToEdit] = useState<empresas>();
+  const [openDeletConfirm, setopenDeletConfirm] = useState(false);
 
   function ativarModalparaeditar(data: any) {
     // console.log(data);
@@ -60,6 +63,8 @@ function Empresas() {
     onSuccess: () => {
       queryClient.invalidateQueries("Empresas");
       queryClient.resetQueries();
+      setopenDeletConfirm(false)
+      setsaveIdEmpresa("")
       // setLouder(true);
       // setOpen(false);
     },
@@ -140,6 +145,14 @@ function Empresas() {
         openFromEdit={openFromEdit}
       ></ModalC_Ecompany>
 
+      {/* modal para confirmar se realmente deseja apagar*/}
+      <CardConfirmDelet
+        open={openDeletConfirm}
+        setOpen={setopenDeletConfirm}
+        functionExecute={Delet}
+        Possibleidtodelete={saveIdEmpresa}
+      ></CardConfirmDelet>
+
       {/* lista de pessoas adicionadas */}
       <div className=" w-full  h-full mt-5">
         <TableContainer component={Paper}>
@@ -199,7 +212,10 @@ function Empresas() {
                           ></Edit_item>
                           <Delete_item
                             ide={item.id as string}
-                            functionDelet={Delet}
+                            functionDelet={() => {
+                              setopenDeletConfirm(true);
+                              setsaveIdEmpresa(item.id);
+                            }}
                           ></Delete_item>
                         </div>
                       </TableCell>

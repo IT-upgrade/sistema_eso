@@ -13,6 +13,7 @@ import useApi from "../../src/services/api";
 import Edit_item from "./Edit_item";
 import Delete_item from "./Delete_item";
 import { useParams } from "react-router-dom";
+import CardInfo from "./CardInfo/CardInfo";
 
 const fabStyle = {
   position: "absolute",
@@ -39,29 +40,28 @@ function CargosCompany() {
     () => GetEmpresaById(id),
     {
       staleTime: 1000 * 60 * 60,
-      onSuccess: (data) => {
-       
-      },
+      onSuccess: (data) => {},
     }
   );
 
-  
-
   const [open, setOpen] = useState(false);
   const [loader, setloader] = useState<boolean>(false);
+  const [openInfo, setopenInfo] = useState<boolean>(false);
   const [openFromEdit, setopenFromEdit] = useState(false);
+  const [infofromcargo, setinfofromcargo] = useState("");
   const [openToEdit, setopenToEdit] = useState<pessoas>();
-  const fabs = [
-    {
-      color: "inherit" as "inherit",
-      sx: { ...fabStyle, ...fabGreenStyle } as SxProps,
-      icon: <AddIcon />,
-      label: "Add",
-    },
-  ];
+  // const fabs = [
+  //   {
+  //     color: "inherit" as "inherit",
+  //     sx: { ...fabStyle, ...fabGreenStyle } as SxProps,
+  //     icon: <AddIcon />,
+  //     label: "Add",
+  //   },
+  // ];
+
   return (
-    <div className=" w-full  min-h-[450px] bg-[#1fc44b28]  p-2 mt-16 rounded-[17px]  ">
-      {/* modal para adicionar pessoas */}
+    <div className=" w-full  min-h-[450px]   p-2 mt-16 rounded-[17px]  ">
+      {/* modal para adicionar CARGOS */}
       <ModalC_ECargo
         open={open}
         setOpen={setOpen}
@@ -69,32 +69,39 @@ function CargosCompany() {
         DataFromApi={openToEdit}
         openFromEdit={openFromEdit}
       ></ModalC_ECargo>
+      {/* modal para INFORMAÇÕES DO CARGO */}
+      <CardInfo
+        open={openInfo}
+        setOpen={setopenInfo}
+        infos={infofromcargo}
+      ></CardInfo>
 
-      {(data?.data?.cargo.length as unknown as number) <= 0 ? (
+      {data?.data?.cargo == undefined ? (
         <div className=" w-full flex flex-col items-center justify-center  h-[300px]   rounded-sm ">
           <span>
             <img src={img} alt="" className=" min-h-full" />
           </span>
           <span className=" md:text-[20px] text-[10px] mt-5  text-[#42493A]">
-            Adicione os cargos da empresa para conseguir velos!
+            Adicione cargos a empresa para conseguir velos!
           </span>
         </div>
       ) : (
         data?.data?.cargo.map((item: any, index: any) => (
           <div
-            className=" w-full p-2 rounded-[10px] flex-row md:flex  bg-[#ffffff] mb-2"
+            className=" w-full p-2 hover:bg-[#b0d38dd7] rounded-[10px] flex-row md:flex  bg-[#b0d38d]  border-[2px] shadow-md  border-[white] mb-2"
             key={index}
           >
-            <span className=" flex-1 flex items-center pl-2 text-lg  ">
+            <span className=" flex-1 flex items-center pl-2 pb-2 text-lg justify-center md:justify-start  text-[#201e1e]  ">
               {item.nomecargo}
             </span>
 
             <div className="  flex justify-self-end ">
               <Edit_item
                 texto="Mais Informações "
-                color={"#00C5FF"}
+                color={"#9999CC"}
                 functionActivateModal={function (props: any): void {
-                  throw new Error("Function not implemented.");
+                  setopenInfo(true);
+                  setinfofromcargo(item);
                 }}
               ></Edit_item>
               <Delete_item ide={"jjnfejnrnjf"}></Delete_item>

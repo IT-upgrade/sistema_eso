@@ -16,6 +16,7 @@ import Login from "./page/Login";
 import PrivateRoute from "./router/PrivateRoute";
 import Empresas from "./page/Empresas/Empresas";
 import CompanyManagemen from "./page/CompanyManagemen";
+import Riscos from "./page/Riscos";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Route path="Agendamentos" element={<Agendamentos />} />
                 <Route path="Atendimentos" element={<Atendimento />} />
                 <Route path="Pessoas" element={<Pessoas />} />
+                <Route path="Riscos" element={<Riscos />} />
                 <Route path="Empresas" element={<Empresas />} />
                 <Route
                   path="Empresas/empresa/:id"

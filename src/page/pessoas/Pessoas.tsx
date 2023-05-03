@@ -27,6 +27,7 @@ import { pessoas, pessoasLintResponsApi } from "../../utils/types";
 import { Grid } from "react-loader-spinner";
 import Edit_item from "../../componestes/Edit_item";
 import Delete_item from "../../componestes/Delete_item";
+import CardConfirmDelet from "../../componestes/CardConfirmDelet/CardConfirmDelet";
 
 function Pessoas() {
   const { GetPessoas, DeletPessoas } = useApi();
@@ -47,6 +48,9 @@ function Pessoas() {
   const [openFromEdit, setopenFromEdit] = useState(false);
   const [openToEdit, setopenToEdit] = useState<pessoas>();
 
+  const [saveIdEmpresa, setsaveIdEmpresa] = useState<string>();
+  const [openDeletConfirm, setopenDeletConfirm] = useState(false);
+
   function ativarModalparaeditar(data: any) {
     console.log(data);
     setopenToEdit(data);
@@ -58,6 +62,8 @@ function Pessoas() {
     onSuccess: () => {
       queryClient.invalidateQueries("pessoas");
       queryClient.resetQueries();
+      setopenDeletConfirm(false);
+      setsaveIdEmpresa("");
       // setLouder(true);
       // setOpen(false);
     },
@@ -70,7 +76,7 @@ function Pessoas() {
     console.log("delet");
 
     console.log(id);
-    setloader(true)
+    setloader(true);
 
     try {
       mutate(id);
@@ -139,6 +145,14 @@ function Pessoas() {
         openFromEdit={openFromEdit}
       ></ModalC_Eperson>
 
+      {/* modal para confirmar se realmente deseja apagar*/}
+      <CardConfirmDelet
+        open={openDeletConfirm}
+        setOpen={setopenDeletConfirm}
+        functionExecute={Delet}
+        Possibleidtodelete={saveIdEmpresa}
+      ></CardConfirmDelet>
+
       {/* lista de pessoas adicionadas */}
       <div className=" w-full  h-full mt-5">
         <TableContainer component={Paper}>
@@ -190,7 +204,10 @@ function Pessoas() {
                         ></Edit_item>
                         <Delete_item
                           ide={item.id as string}
-                          functionDelet={Delet}
+                          functionDelet={() => {
+                            setopenDeletConfirm(true);
+                            setsaveIdEmpresa(item.id);
+                          }}
                         ></Delete_item>
                       </TableCell>
                     </TableRow>
