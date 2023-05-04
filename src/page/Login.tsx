@@ -56,7 +56,7 @@ function Login() {
           })
         );
       },
-      onError: (err) => console.log(err),
+      onError: (err) => alert("emai ou senha incorreto"),
     }
   );
 
