@@ -115,7 +115,7 @@ function useApi() {
 
   const GetEmpresas = async () => {
     try {
-      const response = await api.get("Empresas", {
+      const response = await api.get("empresas", {
         headers: { Authorization: `Bearer ${token}` },
       });
       //   const { accessToken } = response.data;
@@ -189,7 +189,7 @@ function useApi() {
     console.log(id);
 
     try {
-      const response = await api.get(`Empresas/${id}`, {
+      const response = await api.get(`empresas/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       //   const { accessToken } = response.data;
@@ -201,95 +201,25 @@ function useApi() {
     }
   };
 
-  //   const signin = async (uid: string) => {
+  // cruds de cargos------------------------------------------------------------
 
-  //     try {
-  //       const response = await api.post('auth/signin', { uid })
-  //       const { accessToken } = response.data
-  //     //   saveToken({ token: accessToken, auth: true })
+  const SetCargo = async (data?: any) => {
+    try {
+      const response = await api.post(
+        "cargos/cadastro",
+        { data },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      //   const { accessToken } = response.data;
+      //   saveToken({ token: accessToken, auth: true })
 
-  //       return response
-
-  //     } catch (error) {
-
-  //       throw 'falha'
-
-  //     }
-
-  //   }
-
-  //   const signup = async (userId: string, phoneNumber: string) => {
-
-  //     try {
-  //       const response = await api.post('auth/signup', { userId, phoneNumber })
-  //       const { accessToken } = response.data
-  //       saveToken({ token: accessToken, auth: true })
-
-  //       return response
-
-  //     } catch (error) {
-
-  //       throw 'falha'
-
-  //     }
-
-  //   }
-
-  //   const getMe = async () => {
-  //     try {
-  //       const response = await api.get('user/me', { headers: { Authorization: `Bearer ${token}` } })
-  //       return response.data
-
-  //     } catch (error) {
-  //       throw "error"
-  //     }
-  //   }
-
-  //   const getTemes = async () => {
-  //     try {
-  //       const response = await api.get('temes', { headers: { Authorization: `Bearer ${token}` } })
-  //       return response.data
-
-  //     } catch (error) {
-  //       throw "error"
-  //     }
-  //   }
-
-  //   const getModels = async () => {
-  //     try {
-  //       const response = await api.get('models', { headers: { Authorization: `Bearer ${token}` } })
-  //       return response.data
-
-  //     } catch (error) {
-  //       throw "error"
-  //     }
-  //   }
-
-  //   const createConvite = async (data: CreateConviteType) => {
-
-  //     try {
-  //       const response = await api.post('convite', data, { headers: { Authorization: `Bearer ${token}` } })
-  //       console.log(response)
-  //       return response
-
-  //     } catch (error) {
-  //       throw "error"
-  //     }
-
-  //   }
-
-  //   const editConvite = async (data: EditConviteType) => {
-
-  //     try {
-  //       const response = await api.patch(`convite/${state.convite?.id}`, data, { headers: { Authorization: `Bearer ${token}` } })
-  //       console.log(response)
-  //       return response
-
-  //     } catch (error) {
-  //       throw "error"
-  //     }
-
-  //   }
+      return response;
+    } catch (error) {
+      throw "falha";
+    }
+  };
 
   return {
     GetPessoas,
@@ -302,6 +232,7 @@ function useApi() {
     GetEmpresaById,
     EditPessoas,
     signin,
+    SetCargo
     // signup,
     // createConvite,
     // getTemes,

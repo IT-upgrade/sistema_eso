@@ -50,14 +50,9 @@ function CargosCompany() {
   const [openFromEdit, setopenFromEdit] = useState(false);
   const [infofromcargo, setinfofromcargo] = useState("");
   const [openToEdit, setopenToEdit] = useState<pessoas>();
-  // const fabs = [
-  //   {
-  //     color: "inherit" as "inherit",
-  //     sx: { ...fabStyle, ...fabGreenStyle } as SxProps,
-  //     icon: <AddIcon />,
-  //     label: "Add",
-  //   },
-  // ];
+  
+
+  console.log(data?.data?.cargos)
 
   return (
     <div className=" w-full  min-h-[450px]   p-2 mt-16 rounded-[17px]  ">
@@ -76,7 +71,7 @@ function CargosCompany() {
         infos={infofromcargo}
       ></CardInfo>
 
-      {data?.data?.cargo == undefined ? (
+      {data?.data?.cargos == undefined ? (
         <div className=" w-full flex flex-col items-center justify-center  h-[300px]   rounded-sm ">
           <span>
             <img src={img} alt="" className=" min-h-full" />
@@ -86,13 +81,15 @@ function CargosCompany() {
           </span>
         </div>
       ) : (
-        data?.data?.cargo.map((item: any, index: any) => (
+        data?.data?.cargos.map((item: any, index: any) => (
           <div
             className=" w-full p-2 hover:bg-[#b0d38dd7] rounded-[10px] flex-row md:flex  bg-[#b0d38d]  border-[2px] shadow-md  border-[white] mb-2"
             key={index}
           >
-            <span className=" flex-1 flex items-center pl-2 pb-2 text-lg justify-center md:justify-start  text-[#201e1e]  ">
-              {item.nomecargo}
+
+            {/* {console.log(item.nome)} */}
+            <span className=" flex-1 flex items-center pl-2 pb-2 text-[30px] justify-center md:justify-start  text-[#ffffff]  ">
+              {item.nome}
             </span>
 
             <div className="  flex justify-self-end ">

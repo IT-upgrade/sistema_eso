@@ -28,24 +28,24 @@ function CardInfo({ open, setOpen, infos }: CardInfoProp) {
         }}
       >
         <div>
-          <div className="header_containerCardInfo">{infos.nomecargo}</div>
+          <div className="header_containerCardInfo">{infos.nome}</div>
 
           <div className="">
             <Grid container padding={1} spacing={2}>
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={12}>
                   <div className=" itensContainerCardInfo">
-                    <h4 className=" text_itensContainerCardInfo">Ambientes:</h4> {infos.AMBIENTES}
+                    <h4 className=" text_itensContainerCardInfo">Ambientes:</h4> {infos.ambiente}
                   </div>
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <div className=" itensContainerCardInfo">
-                    <h4 className=" text_itensContainerCardInfo">Aptidões:</h4> {infos.APTIDÕES}
+                    <h4 className=" text_itensContainerCardInfo">Aptidões:</h4> {infos.aptidao}
                   </div>
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <div className=" itensContainerCardInfo">
-                    <h4 className=" text_itensContainerCardInfo">Atividades:</h4> {infos.ATIVIDADES}
+                    <h4 className=" text_itensContainerCardInfo">Atividades:</h4> {infos.atividade}
                   </div>
                 </Grid>
                 <Grid item xs={12} sm={12}>
@@ -55,12 +55,17 @@ function CardInfo({ open, setOpen, infos }: CardInfoProp) {
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <div className=" itensContainerCardInfo">
-                    <h4 className=" text_itensContainerCardInfo"> Cor do Cargo:</h4> {infos.corCargo}
+                    <h4 className=" text_itensContainerCardInfo"> Cor do Cargo:</h4> {infos.cor}
                   </div>
                 </Grid>
                 <Grid item xs={12} sm={12}>
                   <div className=" itensContainerCardInfo">
-                    <h4 className=" text_itensContainerCardInfo"> CARGA HORÁRIA:</h4> {infos.gargahoraria}
+                    <h4 className=" text_itensContainerCardInfo"> CARGA HORÁRIA:</h4> {infos.carga_horaria}
+                  </div>
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                  <div className=" itensContainerCardInfo">
+                    <h4 className=" text_itensContainerCardInfo"> Informações:</h4> {infos.informacao}
                   </div>
                 </Grid>
               </Grid>

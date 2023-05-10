@@ -90,6 +90,22 @@ export const schemaFormCreateEmpresa = Yup.object().shape({
     tipo_doc: Yup.string().required("nenhum Documento disponibilizado")
 });
 
+export const schemaFormCreateCargo = Yup.object().shape({
+
+
+    nome: Yup.string().required("nenhum nome disponibilizado"),
+    cor: Yup.string(),
+    cbo: Yup.string().required("nenhum cbo disponibilizado"),
+
+    aptidao: Yup.string().required("nenhuma aptidao disponibilizada"),
+    ambiente: Yup.string().required("nenhum ambiente disponibilizado"),
+    informacao: Yup.string().required("nenhuma informacao disponibilizada"),
+
+    atividade: Yup.string().required("nenhuma atividade informada"),
+    carga_horaria: Yup.string().required("nenhuma carga_horaria disponibilizada"),
+
+});
+
 export const schemaFormLinkType = Yup.object().shape({
     titulo: Yup.string().required("  Nenhum Título adicionado"),
     Link: Yup.string().required("  Nenhum Link adicionado").url("url invalida"),

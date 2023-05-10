@@ -20,7 +20,7 @@ import InputCep from "../inputs/InputCep";
 import * as yup from "yup";
 import useApi from "../../services/api";
 
-import { schemaFormCreateConvite } from "../../utils/schemas";
+import { schemaFormCreateCargo } from "../../utils/schemas";
 import { empresas, pessoas, cargo } from "../../utils/types";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
@@ -29,7 +29,7 @@ interface ModalC_ECargoProp {
   open: boolean;
   setOpen: (type: boolean) => void;
   setLouder: (type: boolean) => void;
-  DataFromApi?: pessoas | null;
+  DataFromApi?: any | null;
   openFromEdit?: boolean | null;
 }
 
@@ -41,30 +41,13 @@ function ModalC_ECargo({
   DataFromApi,
 }: ModalC_ECargoProp) {
   const { id } = useParams();
-  const { EditEmpresas } = useApi();
+  const { SetCargo } = useApi();
   const queryClient = useQueryClient();
   const formRef = useRef(null) as unknown as MutableRefObject<FormHandles>;
 
-  
-
-  interface typeCepAPI {
-    bairro: String;
-    cep: String;
-    complemento: String;
-    ddd: String;
-    gia: String;
-    ibge: String;
-    localidade: String;
-    logradouro: String;
-    siafi: String;
-    uf: String;
-  }
-
- 
-
-  const { mutate } = useMutation(EditEmpresas, {
+  const { mutate } = useMutation(SetCargo, {
     onSuccess: () => {
-      queryClient.invalidateQueries("pessoas");
+      queryClient.invalidateQueries("EmpresaById");
       // presentToast("Convite criado com sucesso!", "success");
       queryClient.resetQueries();
       setLouder(true);
@@ -74,21 +57,21 @@ function ModalC_ECargo({
       prompt("Não foi possivel criar seu convite, tente mais tarde.", "danger");
     },
   });
-  const [datacEP, setdatacEP] = useState<typeCepAPI>();
 
   const handleFormNormal = async (Data: any) => {
-    
-
     try {
       formRef.current.setErrors({});
 
-      //Validando Data, se invalida irá pro catch
-      //   await schemaFormCreateConvite.validate(Data, {
-      //     abortEarly: false,
-      //   });
-      mutate(Data);
+      // Validando Data, se invalida irá pro catch
+      await schemaFormCreateCargo.validate(Data, {
+        abortEarly: false,
+      });
+
+      const datacomId = { ...Data, empresaId: id };
+
+      console.log(datacomId);
+      mutate(datacomId);
     } catch (err) {
-      
       let validationErrors: any = {};
 
       if (err instanceof yup.ValidationError) {
@@ -103,7 +86,6 @@ function ModalC_ECargo({
   };
 
   const handleFormEdit = async (Data: pessoas) => {
-    
     console.log("function to edit");
 
     // try {
@@ -159,15 +141,15 @@ function ModalC_ECargo({
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={4}>
                   <InputString
-                    name="nomecargo"
+                    name="nome"
                     tipo="Nome do Cargo "
-                    datafromApi={DataFromApi?.Nome}
+                    datafromApi={DataFromApi?.nome}
                   ></InputString>
                 </Grid>
 
                 <Grid item xs={12} sm={4}>
                   <InputAutocomplete
-                    name={"corCargo"}
+                    name={"cor"}
                     inputLabel={"Cor"}
                     options={optionscolorCargo}
                   ></InputAutocomplete>
@@ -175,9 +157,9 @@ function ModalC_ECargo({
 
                 <Grid item xs={12} sm={4}>
                   <InputString
-                    name="gargahoraria"
+                    name="carga_horaria"
                     tipo="Carga Horaria "
-                    datafromApi={DataFromApi?.Nome}
+                    datafromApi={DataFromApi?.carga_horaria}
                   ></InputString>
                 </Grid>
               </Grid>
@@ -185,16 +167,16 @@ function ModalC_ECargo({
               <Grid container item direction="row" spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <InputString
-                    name="APTIDÕES"
+                    name="aptidao"
                     tipo="APTIDÕES EXTRAS: "
-                    datafromApi={DataFromApi?.EMAIL_PRINCIPAL}
+                    datafromApi={DataFromApi?.aptidao}
                   ></InputString>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputString
-                    name="ATIVIDADES"
+                    name="atividade"
                     tipo="ATIVIDADES DOS PROFISSIONAIS  "
-                    datafromApi={DataFromApi?.EMAIL_PRINCIPAL}
+                    datafromApi={DataFromApi?.atividade}
                   ></InputString>
                 </Grid>
               </Grid>
@@ -203,14 +185,23 @@ function ModalC_ECargo({
                   <InputString
                     name="cbo"
                     tipo="CBO "
-                    datafromApi={DataFromApi?.EMAIL_PRINCIPAL}
+                    datafromApi={DataFromApi?.cbo}
                   ></InputString>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InputString
-                    name="AMBIENTES"
+                    name="ambiente"
                     tipo="AMBIENTES DE TRANSIÇÃO"
-                    datafromApi={DataFromApi?.EMAIL_PRINCIPAL}
+                    datafromApi={DataFromApi?.ambiente}
+                  ></InputString>
+                </Grid>
+              </Grid>
+              <Grid container item direction="row" spacing={2}>
+                <Grid item xs={12} sm={12}>
+                  <InputString
+                    name="informacao"
+                    tipo="Informações "
+                    datafromApi={DataFromApi?.informacao}
                   ></InputString>
                 </Grid>
               </Grid>
@@ -221,7 +212,7 @@ function ModalC_ECargo({
           <button
             onClick={() => {
               formRef.current?.submitForm();
-              setdatacEP(undefined);
+              // setdatacEP(undefined);
             }}
           >
             {!openFromEdit ? "Enviar" : "Editar"}

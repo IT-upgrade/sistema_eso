@@ -16,7 +16,7 @@ import Login from "./page/Login";
 import PrivateRoute from "./router/PrivateRoute";
 import Empresas from "./page/Empresas/Empresas";
 import CompanyManagemen from "./page/CompanyManagemen";
-import Riscos from "./page/Riscos";
+import Riscos from "./page/Riscos/Riscos";
 
 const queryClient = new QueryClient();
 
